@@ -10,6 +10,7 @@ export class CreateUserController implements Controller {
         try {
             const validationErrors = await UserCreateModel.validate(userModel)
             if (validationErrors.length) return ValidationError(validationErrors)
+            console.log(JSON.stringify(userModel))
             const createdUser = await this.createUser.create(userModel)
             return ok(UserViewModel.convert(createdUser))
         } catch (error) {

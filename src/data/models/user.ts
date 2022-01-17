@@ -5,7 +5,7 @@ export class UserCreateModel extends User{
     static async validate(userCreate: User): Promise<any[]> {
         var validationErrors = []
         var emailValidationErrors = []
-        if (!userCreate.email) emailValidationErrors.push("Email must not be null")
+        if (!userCreate.email || userCreate.email == "") emailValidationErrors.push("Email must not be null")
         if (await (await new UserFromFileRepository().filter(userCreate.email)).length !== 0) emailValidationErrors.push("Email already in use")
         if (emailValidationErrors.length) validationErrors.push({email: emailValidationErrors})
         var passwordValidationErrors = []

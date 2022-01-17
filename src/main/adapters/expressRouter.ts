@@ -9,8 +9,8 @@ export const adaptRoute = (controller: Controller, ) => {
         if (!new JwtAuthenticator().authenticate(req, res)){
             res.status(401).json({detail: "Unauthorized"})
         } else {
+            console.log(`authorized adapt route ${ JSON.stringify(req.body) }`)
             const httpResponse = await controller.handle(req.body)
-            console.log(`adapt route ${ JSON.stringify(req.body) }`)
             res.status(httpResponse.statusCode).json(httpResponse.data)
         }
      
